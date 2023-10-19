@@ -98,6 +98,69 @@ bool esPrimo(int numero) {
 }
 ~~~
 
+## Parte 3: Fotodiodo.
+![Tinkercad](./img/diseño-parte-3.png)
+
+### Descripción
+Este circuito simula un sensor de seguridad de 3 zonas. Para ello, utiliza 3 fotodiodos, los cuales, en este caso, funcionan como sensores de movimiento. 
+
+Un fotodiodo en polarización directa funciona como un diodo normal, permite el paso de la corriente en un sentido, siempre y cuando se supere la tensión necesaria; pero tiene una función especial en polarización inversa: genera una pequeña corriente cuando es expuesto a la luz. De esta manera, puede ser utilizado para detectar la incidencia de luz o la falta de ella, con un tiempo de respuesta muy rápido. Dependiendo de su material de construcción, detecta diferentes frecuencias del espectro electromagnético.
+
+En este circuito hay 3 fotodiodos, cada uno está conectado a una entrada analógica del arduino. Si se detecta una disminución en la cantidad de luz del 80% en alguno de ellos, se enciende el LED que está enlazado a ese fotodiodo, y aumenta el contador en el display. Una vez que se encendió el LED, seguirá estando encendido hasta que se apague manualmente, mediante el botón RESET.
+
+### Funciones principales
+Para tomar la lectura del fotodiodo, se utiliza la función map()
+
+~~~ C
+  lecturaSensor1 = map(lecturaSensor1,524,1023,0,100);
+  lecturaSensor2 = map(lecturaSensor2,524,1023,0,100);
+  lecturaSensor3 = map(lecturaSensor3,524,1023,0,100);
+~~~
+De esta manera, se pueden leer los valores como porcentaje de la cantidad de luz que ingresa al fotodiodo.
+
+Luego, se encienden los LED de advertencia en función de la lectura de los fotodiodos, y se aumenta el contador.
+
+~~~ C
+  if (lecturaSensor1 <= 20)
+    estadoActualSensor1 = true;
+  else
+    estadoActualSensor1 = false;
+  
+  if (lecturaSensor2 <= 20)
+    estadoActualSensor2 = true;
+  else
+    estadoActualSensor2 = false;
+  
+  if (lecturaSensor3 <= 20)
+    estadoActualSensor3 = true;
+  else
+    estadoActualSensor3 = false;
+
+///////////////////////////////////////////////////////////////////
+
+  if (estadoActualSensor1)
+    digitalWrite(LED_1, HIGH);
+  
+  if (estadoActualSensor2)
+    digitalWrite(LED_2, HIGH);
+  
+  if (estadoActualSensor3)
+    digitalWrite(LED_3, HIGH);
+  
+  if (deteccionReset){
+    digitalWrite(LED_1, LOW);
+    digitalWrite(LED_2, LOW);
+    digitalWrite(LED_3, LOW);
+  }
+  
+  // Si se detecta actividad en cualquier sensor, se aumenta el contador
+  if (deteccionSensor1.ejecucion || deteccionSensor2.ejecucion || deteccionSensor3.ejecucion){
+    contadorDetecciones++;
+  }
+~~~
+
+
 ## :robot: Link al proyecto
 - [Parte 1](https://www.tinkercad.com/things/fl4kxIXSfHR?sharecode=D6jwre6D70nH2UNetzScZsd0BpX8h9_mCDD-rFe1n2s)
 - [Parte 2](https://www.tinkercad.com/things/bWPrIjv5mIT?sharecode=_IR0yJF-QYcyFThGaMv9oA8YFEt4gtaEelkMpPUhj4I)
+- [Parte 3](https://www.tinkercad.com/things/cTIY6pEUOiK?sharecode=tQ9t70NPiFNzLOMxvOk7tkYJcTSMVF6QCmDrY3vUBYQ)
