@@ -99,5 +99,5 @@ bool esPrimo(int numero) {
 ~~~
 
 ## :robot: Link al proyecto
-- [Parte 1](https://www.tinkercad.com/things/is7XQ8Ry0C8)
-- [Parte 2](https://www.tinkercad.com/things/bnREgVTIRfq)
+- [Parte 1](https://www.tinkercad.com/things/fl4kxIXSfHR?sharecode=D6jwre6D70nH2UNetzScZsd0BpX8h9_mCDD-rFe1n2s)
+- [Parte 2](https://www.tinkercad.com/things/bWPrIjv5mIT?sharecode=_IR0yJF-QYcyFThGaMv9oA8YFEt4gtaEelkMpPUhj4I)
