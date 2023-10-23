@@ -159,8 +159,54 @@ Luego, se encienden los LED de advertencia en función de la lectura de los foto
   }
 ~~~
 
+## Parte 4: Extra parcial.
+![Tinkercad](./img/diseño-parte-4.png)
+
+### Descripción
+Para esta parte, en lugar de mostrar los números primos, se mostrarán los números que sean múltiplo de 2 en el display. Además, se mostrará el mismo en el monitor en serie.
+
+
+### Función principal
+Dentro del loop principal, se sustituye en la sección que calcula el siguiente/anterior número primo la condición, para que se tengan en cuenta los múltiplos de 2 en su lugar.
+
+Cabe aclarar que se utiliza la misma variable que almacenaba el valor del número primo, para almacenar el valor del múltiplo de 2.
+
+~~~ C
+if (deteccionSuma.ejecucion){
+    // Se aumenta en 1 el valor del número actual
+    numeroPrimo++;
+    // Se inicia un bucle que continua mientras el número NO sea múltiplo de 2.
+    // Para eso, se utiliza el operador módulo < % > , el cual devuelve el resto de la división entre un número y, en este caso, 2.
+    while (numeroPrimo % 2 != 0){
+        // Si el número se sobrepasa del límite del display, se reinicia el contador.
+        if (numeroPrimo > 99){
+            numeroPrimo = 0;
+            break;
+        }
+        // Si el número no es múltiplo de 2, se aumenta el contador y se vuelve a comprobar el siguiente número.
+        numeroPrimo++;
+        // Se imprime el número.
+        Serial.println(numeroPrimo);
+    }
+}
+
+if (deteccionResta.ejecucion){
+    // Para este caso se hace lo mismo que en el bloque anterior, pero con el número anterior en lugar del siguiente.
+    numeroPrimo--;
+    while (numeroPrimo % 2 != 0){
+        if (numeroPrimo < 0){
+            numeroPrimo = 98;
+            break;
+        }
+        numeroPrimo--;
+        Serial.println(numeroPrimo);
+    }
+}
+~~~
+
 
 ## :robot: Link al proyecto
 - [Parte 1](https://www.tinkercad.com/things/fl4kxIXSfHR?sharecode=D6jwre6D70nH2UNetzScZsd0BpX8h9_mCDD-rFe1n2s)
 - [Parte 2](https://www.tinkercad.com/things/bWPrIjv5mIT?sharecode=_IR0yJF-QYcyFThGaMv9oA8YFEt4gtaEelkMpPUhj4I)
 - [Parte 3](https://www.tinkercad.com/things/cTIY6pEUOiK?sharecode=tQ9t70NPiFNzLOMxvOk7tkYJcTSMVF6QCmDrY3vUBYQ)
+- [Parte 4](https://www.tinkercad.com/things/cSLXAIlF75n?sharecode=J6gInPTzCOtQVBw07KJzS6_485DsyEUpOV1Z58j24aQ)
